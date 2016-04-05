@@ -1,0 +1,304 @@
+# feelinglucky
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>Feeling Lucky?</title>
+	<meta name="description" content="">
+	<meta name="author" content="Robert Keyser">
+
+   <!-- Mobile Specific Metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+    ================================================== -->
+   <link rel="stylesheet" href="css/default.css">
+   <link rel="stylesheet" href="css/layout.css">
+   <link rel="stylesheet" href="css/media-queries.css">
+   <link rel="stylesheet" href="css/magnific-popup.css">
+
+   <!-- Script
+   ================================================== -->
+	<script src="js/modernizr.js"></script>
+    <script>
+            var crash = "crashes.csv";
+            var pb = 0.000000003422;
+            var t = [];
+            
+            function load(){
+                var e = document.getElementById("state1");
+                var state = e.options[e.selectedIndex].value;
+                d3.csv(crash,function(data) {
+                    return{
+                        st : data["st"],
+                        dperm : data["dperm"]
+                        };
+                }, function (data){
+                    t = data;
+                    set2(state);
+                   });
+            }
+            
+            function set2(s){
+                var prob = t[s].dperm;
+                var miles = document.getElementById('n').value;
+                prob = prob*miles;
+                document.getElementById("ans").innerHTML = scitodec(prob*100)+"%";
+                document.getElementById("prob").innerHTML = scitodec(pb*100)+"%";
+                var times = prob/pb;
+                document.getElementById("conc").innerHTML = times.toFixed(3);
+            }
+            
+
+            function scitodec(n) {
+                n = String(n.toFixed(11));
+                var info = /([\d\.]+)e-(\d+)/i.exec(n);
+                if (!info) {
+                    return n;
+                }
+                var num = info[1].replace('.', ''), numDecs = info[2] - 1;
+                var output = "0.";
+                for (var i = 0; i < numDecs; i++) {
+                    output += "0";
+                }
+                output += num;
+
+                return output;
+            }
+        </script>
+    
+   <!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="favicon.ico" type='image/x-icon' >
+
+</head>
+
+<body onload = "load()">
+ <script src="d3.v3.min.js"></script>
+   <!-- Header
+   ================================================== -->
+   <header id="home">
+
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline">Feeling Lucky?</h1>
+            <h3>Is Powerball really worth it? In many cases, you're more likely to be killed on the way to buy your ticket than winning the jackpot. <a class="smoothscroll" href="#calculator">Find out what the chances are in your state below.</a>
+           </h3>
+            <hr/>
+
+         </div>
+      </div>
+
+      <p class="scrolldown">
+         <a class="smoothscroll" href="#calculator"><i class="icon-down-circle"></i></a>
+      </p>
+
+   </header> <!-- Header End -->
+
+
+   <!-- Calculator Section
+   ================================================== -->
+   <section id="calculator">
+
+        <select name = "state" id = "state1" onchange = "load()">
+            <option value="0">Alabama</option><option value="1">Alaska</option><option value="2">Arizona</option><option value="3">Arkansas</option><option value="4">California</option><option value="5">Colorado</option><option value="6">Connecticut</option><option value="7">Delaware</option><option value="8">District Of Columbia</option><option value="9">Florida</option><option value="10">Georgia</option><option value="11">Hawaii</option><option value="12">Idaho</option><option value="13">Illinois</option><option value="14">Indiana</option><option value="15">Iowa</option><option value="16">Kansas</option><option value="17">Kentucky</option><option value="18">Louisiana</option><option value="19">Maine</option><option value="20">Maryland</option><option value="21">Massachusetts</option><option value="22">Michigan</option><option value="23">Minnesota</option><option value="24">Mississippi</option><option value="25">Missouri</option><option value="26">Montana</option><option value="27">Nebraska</option><option value="28">Nevada</option><option value="29">New Hampshire</option><option value="30">New Jersey</option><option value="31">New Mexico</option><option value="32">New York</option><option value="33">North Carolina</option><option value="34">North Dakota</option><option value="35">Ohio</option><option value="36">Oklahoma</option><option value="37">Oregon</option><option value="38">Pennsylvania</option><option value="39">Rhode Island</option><option value="40">South Carolina</option><option value="41">South Dakota</option><option value="42">Tennessee</option><option value="43">Texas</option><option value="44">Utah</option><option value="45">Vermont</option><option value="46">Virginia</option><option value="47">Washington</option><option value="48">West Virginia</option><option value="49">Wisconsin</option><option value="50">Wyoming</option>
+        </select>
+        
+        <input type = "number" id = "n" min = "0" max = "1000000" value = "1" onchange="load()"> Miles
+        <br/>
+        <ul id="nums">
+            <li>Probability of dying on the way: &#8198; &nbsp; <span id = "ans" class = "number">0</span></li>
+            <li>Probability of winning the jackpot: <span id = "prob" class = "number" >0.000000003422</span></li>
+            <li>You are <span id = "conc"> </span> times more likely to die than win.</li>
+        </ul>
+
+   </section> <!-- Calculator Section End-->
+
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="info">
+
+      <!-- Education
+      ----------------------------------------------- -->
+      <div class="row means">
+
+         <div class="three columns header-col">
+            <h1><span>What it means</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+                  <p>
+                    While playing the lottery isn't dangerous, you aren't very likely to win big. In fact, you have more of a chance of dying on the way to purchase your ticket than winning the Powerball jackpot. It doesn't mean that you shouldn't play, that's your decision; however, you should have realistic expectations regarding winning. 
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Means -->
+
+
+      <!-- Work
+      ----------------------------------------------- -->
+      <div class="row works">
+
+         <div class="three columns header-col">
+            <h1><span>How it works</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  
+                  <p>
+                      The data used for the calculations was sourced from the following sources:<br>
+                      <ul>
+                   <li><a href="http://www.durangobill.com/PowerballOdds.html">Powerball Odds</a></li>
+                    <li><a href="http://www.iihs.org/iihs/topics/t/general-statistics/fatalityfacts/state-by-state-overview">Fatality Rates by State</a></li>
+                   </ul>
+                      The probability of dying per mile in a state is calculated by dividing the total number of vehicular deaths by the total number of vehicle miles driven.
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Works -->
+
+
+      <!-- Disclaimer
+      ----------------------------------------------- -->
+      <div class="row Discl">
+
+         <div class="three columns header-col">
+            <h1><span>Disclaimer</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <p>This website is intended to illustrate just how low the probability of winning the Powerball is not to accurately estimate the probability of dying while driving. The fatality probability should be taken with a grain of salt and is only illustrative in nature, and by no means an accurate estimate of the probability that a person would die in a given mile. That figure is an oversimplified estimate of the true probability of dying in a mile of driving. A more accurate estimate would consider the age of driver, the vehicle’s make and model, the road and weather conditions, etc. It also does not take into account that vehicular fatalities can occur at intersections, where the car is stationary.
+            </p>
+
+
+			</div> <!-- main-col end -->
+
+      </div> <!-- End Discl -->
+
+   </section> <!-- Info Section End-->
+
+
+   
+   
+
+   <!-- Auth Section
+   ================================================== -->
+   <section id="auth">
+
+      <div class="text-container">
+
+         <div class="row">
+
+            <div class="two columns header-col">
+
+               
+
+            </div>
+
+            <div class="ten columns flex-container">
+
+                <h1>
+                   Created by Robert Keyser, 2016
+                </h1>
+                
+             
+            </div> <!-- div.flex-container ends -->
+
+         </div> <!-- row ends -->
+
+       </div>  <!-- text-container ends -->
+
+   </section> <!-- Auth Section End-->
+
+
+   <!-- Contact Section
+   ================================================== -->
+   <section id="contact">
+
+         <div class="row section-head">
+
+            <div class="two columns header-col">
+
+               <h1><span>Get In Touch.</span></h1>
+
+            </div>
+
+            <div class="ten columns">
+
+                  <p class="lead">Questions or comments? <br> Don't hesitate to reach out and send me and email. <br> rkeyser [at] stevens.edu
+                  </p>
+
+            </div>
+
+         </div>
+
+
+      </div>
+
+   </section> <!-- Contact Section End-->
+
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="row">
+
+         <div class="twelve columns">
+
+
+            <ul class="copyright">
+               <li>&copy; Robert Keyser, 2016</li>
+               <li>Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a></li>   
+            </ul>
+
+         </div>
+
+         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
+
+      </div>
+
+   </footer> <!-- Footer End-->
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+
+   <script src="js/jquery.flexslider.js"></script>
+   <script src="js/waypoints.js"></script>
+   <script src="js/jquery.fittext.js"></script>
+   <script src="js/magnific-popup.js"></script>
+   <script src="js/init.js"></script>
+
+</body>
+
+</html>
